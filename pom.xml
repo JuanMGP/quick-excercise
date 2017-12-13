@@ -4,7 +4,21 @@
 	<groupId>com.accountsiq.automationtest</groupId>
 	<artifactId>quick-exercise</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!-- add Maven compiler configuration: plugin que se debe agregar para que no joda con el 1.5 o 1.7 -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -16,7 +30,6 @@
 			<artifactId>webdrivermanager</artifactId>
 			<version>1.7.2</version>
 		</dependency>
-		<!-- sdhfjksd -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
