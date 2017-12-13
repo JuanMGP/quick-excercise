@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.accountsiq.automationtest</groupId>
+	<artifactId>quick-exercise</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<!-- add Maven compiler configuration: plugin que se debe agregar para que no joda con el 1.5 o 1.7 -->
+	<dependencies>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.7.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<!-- sdhfjksd -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

@@ -39,11 +39,18 @@ public class ListRandomizerTest extends BaseTest {
 
 		randomizerPage.clickOnRandomizeButton();
 
+		// Set Basic Mode for verifications
+		String mode = "HTTP";
+
+		// Get rendomized list
+		List<String> randomized = new ArrayList<>();
+		randomized = randomizerPage.getElementsFromList(mode);
+
 		// Verify if all elements are present in the randomized list
-		assertTrue(randomizerPage.verifyNoMissingElements(elements));
+		assertTrue(randomizerPage.verifyNoMissingElements(elements, randomized));
 
 		// Verify the new list is different from the former list
-		assertTrue(randomizerPage.verifyRandomization(elements));
+		assertTrue(randomizerPage.verifyRandomization(elements, randomized));
 	}
 
 	@Test
@@ -83,61 +90,68 @@ public class ListRandomizerTest extends BaseTest {
 		assertEquals(randomizerPage.lessThanTwoElementsMessage(), "Error: Your list must contain at least two items");
 	}
 
+	 //Boundary Value Analysis
+	 @Test
+	 public void tenThousanElementsRandomization() {
+	 /*
+	 * Test case description: This Test will verify that the Randomize function
+	 will
+	 * reject a try with 10.001 elements, and will accept a list with 10.000.
+	 * WARNING: this test case takes more than an hour to finish
+	 */
 	
-	// Boundary Value Analysis
-//	@Test
-//	public void tenThousanElementsRandomization() {
-//		/*
-//		 * Test case description: This Test will verify that the Randomize function will
-//		 * reject a try with 10.001 elements, and will accept a list with 10.000.
-//		 * WARNING: this test case takes more than an hour to finish
-//		 */
-//
-//		RandomOrgPage randomListPage = new RandomOrgPage(driver);
-//
-//		randomListPage.waitUntilListTitleIsVisible();
-//
-//		ListRandomizerPage randomizerPage = randomListPage.clickOnRandomizerLink();
-//
-//		randomizerPage.waitUntilListTitleIsVisible();
-//
-//		List<String> elements = new ArrayList<>();
-//
-//		randomizerPage.insertAThousandOneElements(elements);
-//
-//		randomizerPage.insertElements(elements);
-//
-//		randomizerPage.clickOnRandomizeButton();
-//
-//		// Verify if error message is displayed when user attempts to randomize a list
-//		// with 10.001 elements
-//		assertEquals(randomizerPage.moreThanOneThousandElementsMessage(),
-//				"Error: Your list contained 10001 items, but unfortunately the maximum number is 10000");
-//
-//		// Go back to Randomize function
-//		randomizerPage.clickOnGoBackButton();
-//
-//		// An element is suppressed from the list
-//		elements.remove(10000);
-//
-//		randomizerPage.waitUntilListTitleIsVisible();
-//
-//		// Get the list ready for randomization
-//		// randomizerPage.clickOnResetButton();
-//		// Changing strategy because it takes too long!
-//		randomizerPage.deleteLastElement(elements);
-//
-//		randomizerPage.clickOnRandomizeButton();
-//
-//		// Verify if all elements are present in the randomized list
-//		assertTrue(randomizerPage.verifyNoMissingElements(elements));
-//
-//		// Verify the new list is different from the former list
-//		assertTrue(randomizerPage.verifyRandomization(elements));
-//	}
+	 RandomOrgPage randomListPage = new RandomOrgPage(driver);
+	
+	 randomListPage.waitUntilListTitleIsVisible();
+	
+	 ListRandomizerPage randomizerPage = randomListPage.clickOnRandomizerLink();
+	
+	 randomizerPage.waitUntilListTitleIsVisible();
+	
+	 List<String> elements = new ArrayList<>();
+	
+	 randomizerPage.insertAThousandOneElements(elements);
+	
+	 randomizerPage.insertElements(elements);
+	
+	 randomizerPage.clickOnRandomizeButton();
+	
+	 // Verify if error message is displayed when user attempts to randomize a
+	 //list with 10.001 elements
+	 assertEquals(randomizerPage.moreThanOneThousandElementsMessage(),
+	 "Error: Your list contained 10001 items, but unfortunately the maximum number is 10000");
+	
+	 // Go back to Randomize function
+	 randomizerPage.clickOnGoBackButton();
+	
+	 // An element is suppressed from the list
+	 elements.remove(10000);
+	
+	 randomizerPage.waitUntilListTitleIsVisible();
+	
+	 // Get the list ready for randomization
+	 // randomizerPage.clickOnResetButton();
+	 // Changing strategy because it takes too long!
+	 randomizerPage.deleteLastElement(elements);
+	
+	 randomizerPage.clickOnRandomizeButton();
+	
+	 //Set Basic Mode for verifications
+	 String mode = "HTTP";
+	
+	 //Get rendomized list
+	 List<String> randomized = new ArrayList<>();
+	 randomized = randomizerPage.getElementsFromList(mode);
+	
+	 // Verify if all elements are present in the randomized list
+	 assertTrue(randomizerPage.verifyNoMissingElements(elements, randomized));
+	
+	 // Verify the new list is different from the former list
+	 assertTrue(randomizerPage.verifyRandomization(elements, randomized));
+	 }
 
 	@Test
-	public void successfulRandomizationInAdvancedMode() {
+	public void successfulRandomizationInPlainTextMode() {
 
 		/*
 		 * Test case description: This Test will verify that the randomize function
@@ -165,11 +179,14 @@ public class ListRandomizerTest extends BaseTest {
 
 		randomizerPage.clickOnRandomizeButton();
 
+		String mode = "Plain";
+		List<String> randomized = new ArrayList<>();
+		randomized = randomizerPage.getElementsFromList(mode);
+
 		// Verify if all elements are present in the randomized list
-		assertTrue(randomizerPage.verifyNoMissingElementsAM(elements));
+		assertTrue(randomizerPage.verifyNoMissingElements(elements, randomized));
 
 		// Verify the new list is different from the former list
-		assertTrue(randomizerPage.verifyRandomizationAM(elements));
+		assertTrue(randomizerPage.verifyRandomization(elements, randomized));
 	}
-
 }

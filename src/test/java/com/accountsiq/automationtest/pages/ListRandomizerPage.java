@@ -90,53 +90,48 @@ public class ListRandomizerPage {
 		return elements;
 	}
 
-	public List<String> getElementsfromRandomizedList() {
-		Iterator<WebElement> itr = randomizedList.iterator();
+	public List<String> getElementsFromList(String mode) {
+
 		List<String> randomizedElements = new ArrayList<>();
-		while (itr.hasNext()) {
-			randomizedElements.add(itr.next().getText());
-		}
-		return randomizedElements;
-	}
 
-	public List<String> getElementsFromListInPlaneText() {
-		String tex = randomizedListInPlaneText.getText();
-		String[] items = tex.split("\n");
-		List<String> randomizedElements = Arrays.asList(items);
-		return randomizedElements;
-	}
+		Iterator<WebElement> itr = randomizedList.iterator();
 
-	public boolean verifyNoMissingElements(List<String> formerElements) {
-		List<String> randomizedElements = getElementsfromRandomizedList();
-		if (formerElements.size() != randomizedElements.size()) {
-			return false;
-		} else {
-			boolean missing = false;
-			for (String element : formerElements) {
-				if (Collections.frequency(formerElements, element) != Collections.frequency(randomizedElements,
-						element)) {
-					missing = true;
-				}
-				if (missing)
-					return false;
+		switch (mode) {
+		case "HTTP":
+			while (itr.hasNext()) {
+				randomizedElements.add(itr.next().getText());
 			}
-			return true;
+			break;
+		case "Plain":
+			String tex = randomizedListInPlaneText.getText();
+			String[] items = tex.split("\n");
+			randomizedElements = Arrays.asList(items);
+			break;
+		default:
+			while (itr.hasNext()) {
+				randomizedElements.add(itr.next().getText());
+			}
+			break;
 		}
+		return randomizedElements;
 	}
 
-	public boolean verifyRandomization(List<String> formerElements) {
-		List<String> randomizedElements = getElementsfromRandomizedList();
+	public boolean verifyNoMissingElements(List<String> formerElements, List<String> randomizedElements) {
 		if (formerElements.size() != randomizedElements.size()) {
 			return false;
-		} else {
-			if (formerElements.equals(randomizedElements)) {
+		}
+		for (String element : formerElements) {
+			if (Collections.frequency(formerElements, element) != Collections.frequency(randomizedElements, element)) {
 				return false;
-			} else {
-				return true;
 			}
 		}
+		return true;
 	}
 
+	public boolean verifyRandomization(List<String> formerElements, List<String> randomizedElements) {
+		return !formerElements.equals(randomizedElements);
+		}
+	
 	public String lessThanTwoElementsMessage() {
 		return errorMessage.getText();
 	}
@@ -169,37 +164,6 @@ public class ListRandomizerPage {
 		// list
 		for (int i = 0; i < elements.get(elements.size() - 1).length() + 1; i++) {
 			textArea.sendKeys(Keys.BACK_SPACE);
-		}
-	}
-
-	public boolean verifyNoMissingElementsAM(List<String> formerElements) {
-		List<String> randomizedElements = getElementsFromListInPlaneText();
-		if (formerElements.size() != randomizedElements.size()) {
-			return false;
-		} else {
-			boolean missing = false;
-			for (String element : formerElements) {
-				if (Collections.frequency(formerElements, element) != Collections.frequency(randomizedElements,
-						element)) {
-					missing = true;
-				}
-				if (missing)
-					return false;
-			}
-			return true;
-		}
-	}
-
-	public boolean verifyRandomizationAM(List<String> formerElements) {
-		List<String> randomizedElements = getElementsFromListInPlaneText();
-		if (formerElements.size() != randomizedElements.size()) {
-			return false;
-		} else {
-			if (formerElements.equals(randomizedElements)) {
-				return false;
-			} else {
-				return true;
-			}
 		}
 	}
 }
